@@ -1,0 +1,41 @@
+# Created by BioNetGen 2.7.1
+begin parameters
+    1 y1     750  # Constant
+    2 L      723  # Constant
+    3 A      500  # Constant
+    4 K      337  # Constant
+    5 ka1    0.03791999300713553  # Constant
+    6 ka6    ka1*y1  # ConstantExpression
+    7 kb1    700.8240393636927  # Constant
+    8 kcat1  2.346311110198  # Constant
+    9 Km1    (kb1+kcat1)/ka1  # ConstantExpression
+   10 Km6    (kb1+kcat1)/ka6  # ConstantExpression
+   11 ka2    0.05  # Constant
+   12 kb2    100  # Constant
+   13 ka3    0.1  # Constant
+   14 kb3    700  # Constant
+end parameters
+begin species
+    1 pip2(head~U) L
+    2 ap2(m2muh,sy) A
+    3 kin(ap,pi) K
+    4 kin(ap,pi!1).pip2(head~U!1) 0
+    5 pip2(head~P) 0
+    6 ap2(m2muh!1,sy).pip2(head~P!1) 0
+end species
+begin reactions
+    1 1,3 4 ka1 #R1
+    2 4 1,3 kb1 #_reverse_R1
+    3 4 3,5 kcat1 #R1kcat
+    4 2,5 6 ka2 #R2
+    5 6 2,5 kb2 #_reverse_R2
+end reactions
+begin groups
+    1 Lfree                1
+    2 Lp                   5
+    3 Afree                2
+    4 Kfree                3
+    5 LK                   4
+    6 LpA                  6
+    7 LpAK                 
+end groups

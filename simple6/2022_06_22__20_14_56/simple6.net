@@ -1,0 +1,73 @@
+# Created by BioNetGen 2.7.1
+begin parameters
+    1 y1     750  # Constant
+    2 L      4517.25  # Constant
+    3 A      903.45  # Constant
+    4 K      67.20545293605097  # Constant
+    5 P      90.53945662552576  # Constant
+    6 ka1    0.00029618738483467037  # Constant
+    7 ka4    ka1*y1  # ConstantExpression
+    8 kb1    7.686604351412696  # Constant
+    9 kcat1  500  # Constant
+   10 Km1    (kb1+kcat1)/ka1  # ConstantExpression
+   11 ka6    0.0005253224152058502  # Constant
+   12 ka2    0.0033210781343476934  # Constant
+   13 kb2    1.8274442883567392  # Constant
+   14 ka3    0.050042137015268634  # Constant
+   15 kb3    379.79344838656317  # Constant
+   16 ka5    0.0033210781343476934  # Constant
+   17 ka7    ka5*y1  # ConstantExpression
+   18 kb5    13.266634054571963  # Constant
+   19 kcat5  33.91475227547318  # Constant
+   20 kb6    0.49574586107169005  # Constant
+end parameters
+begin functions
+    1 Km6() (kb1+kcat1)/ka6
+end functions
+begin species
+    1 pip2(head~U) 4.410302383104e+03
+    2 ap2(m2muh,sy) 8.475141397486e+02
+    3 kin(ap,pi) 6.600221211559e+01
+    4 syn(ap,pi) 7.631826425328e+01
+    5 kin(ap,pi!1).pip2(head~U!1) 1.698354397358e-01
+    6 pip2(head~P) 4.043376093171e+01
+    7 ap2(m2muh!1,sy).pip2(head~P!1) 4.089273425215e+01
+    8 pip2(head~P!1).syn(ap,pi!1) 2.114717537554e-01
+    9 ap2(m2muh!1,sy!2).kin(ap!2,pi).pip2(head~P!1) 3.531422953175e-01
+   10 ap2(m2muh!1,sy!2).pip2(head~P!1).syn(ap!2,pi) 4.493295157544e+00
+   11 ap2(m2muh!1,sy!2).kin(ap!2,pi!3).pip2(head~P!1).pip2(head~U!3) 6.802630854020e-01
+   12 ap2(m2muh!1,sy!2).pip2(head~P!1).pip2(head~P!3).syn(ap!2,pi!3) 9.516425460951e+00
+end species
+begin reactions
+    1 1,3 5 ka1 #R1
+    2 5 1,3 kb1 #_reverse_R1
+    3 5 3,6 kcat1 #R1kcat
+    4 2,6 7 ka2 #R2
+    5 4,6 8 ka5 #R5
+    6 7 2,6 kb2 #_reverse_R2
+    7 3,7 9 ka3 #R3
+    8 8 4,6 kb5 #_reverse_R5
+    9 8 1,4 kcat5 #R5kcat
+   10 4,7 10 ka6 #R6
+   11 1,9 11 ka4 #R4
+   12 9 3,7 kb3 #_reverse_R3
+   13 10 4,7 kb6 #_reverse_R6
+   14 6,10 12 ka7 #R7
+   15 11 6,9 kcat1 #R1kcat
+   16 11 1,9 kb1 #_reverse_R4
+   17 12 1,10 kcat5 #R5kcat
+   18 12 6,10 kb5 #_reverse_R7
+end reactions
+begin groups
+    1 Lfree                1
+    2 Lp                   6
+    3 Afree                2
+    4 Kfree                3
+    5 Pfree                4
+    6 LK                   5
+    7 LpA                  7
+    8 LpAK                 9
+    9 LpAKL                11
+   10 LpP                  8
+   11 LpAP                 10
+end groups

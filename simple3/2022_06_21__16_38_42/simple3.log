@@ -1,0 +1,49 @@
+BioNetGen version 2.7.1
+Reading from file /Users/jonathanfischer/Desktop/BNGL/simple3/2022_06_21__16_38_42/simple3.bngl (level 0)
+Read 18 parameters.
+Read 4 molecule types.
+Read 4 species.
+Read 7 observable(s).
+Read 7 reaction rule(s).
+ACTION: simulate( method=>"cvode" )
+ACTION: generate_network( simple3 )
+Iteration   0:     4 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     5 species      1 rxns  0.00e+00 CPU s
+Iteration   2:     6 species      3 rxns  0.00e+00 CPU s
+Iteration   3:     8 species      5 rxns  0.00e+00 CPU s
+Iteration   4:     9 species      9 rxns  0.00e+00 CPU s
+Iteration   5:    10 species     11 rxns  0.00e+00 CPU s
+Iteration   6:    10 species     13 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   2:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   3:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   4:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   5:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   6:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   7:     1 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Total   :    13 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Wrote network in net format to ./simple3.net.
+Network simulation using cvode
+WARNING: writeFile(): Overwriting existing file ./simple3.net.
+Wrote network in net format to ./simple3.net.
+Running run_network on Jonathans-MacBook-Air.local
+full command: /Users/jonathanfischer/miniforge3/envs/m1/lib/python3.9/site-packages/bionetgen/bng-mac/bin/run_network -o ./simple3 -p cvode -a 1e-08 -r 1e-08 --cdat 1 --fdat 0 -g ./simple3.net ./simple3.net 0.01 10000
+[simulation PID is: 61474]
+run_network 3.0
+Read 18 parameters from ./simple3.net
+Read 10 species from ./simple3.net
+Read 7 group(s) from ./simple3.net
+Read 0 function(s) from ./simple3.net
+Read 13 reaction(s) from ./simple3.net
+13 reaction(s) have nonzero rate
+Initialization took 0.00 CPU seconds
+Propagating with cvode using dense LU
+Time course of concentrations written to file ./simple3.cdat.
+Time course of groups written to file ./simple3.gdat.
+Propagation took 1.10e-01 CPU seconds
+Program times:  0.11 CPU s 0.00 clock s
+Updating species concentrations from ./simple3.cdat
+CPU TIME: simulate 0.14 s.
+Finished processing file /Users/jonathanfischer/Desktop/BNGL/simple3/2022_06_21__16_38_42/simple3.bngl.
+CPU TIME: total 0.15 s.

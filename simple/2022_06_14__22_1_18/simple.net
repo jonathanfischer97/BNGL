@@ -1,0 +1,25 @@
+# Created by BioNetGen 2.7.1
+begin parameters
+    1 L          723  # Constant
+    2 K          337  # Constant
+    3 ka1        0.06296910163921543  # Constant
+    4 kb1        700.8240393636927  # Constant
+    5 kcat1      2.346311110198  # Constant
+    6 Km1        (kb1+kcat1)/ka1  # ConstantExpression
+end parameters
+begin functions
+    1 _rateLaw1() kcat1/(Km1+Lfree)
+end functions
+begin species
+    1 pip2(head~U) L
+    2 kin(pi) K
+    3 pip2(head~P) 0
+end species
+begin reactions
+    1 2,1 2,3 _rateLaw1 #R1
+end reactions
+begin groups
+    1 Lfree                1
+    2 Lp                   3
+    3 Kfree                2
+end groups

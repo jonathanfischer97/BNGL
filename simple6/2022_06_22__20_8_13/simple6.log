@@ -1,0 +1,51 @@
+BioNetGen version 2.7.1
+Reading from file /Users/jonathanfischer/Desktop/BNGL/simple6/2022_06_22__20_8_13/simple6.bngl (level 0)
+Read 21 parameters.
+Read 4 molecule types.
+Read 4 species.
+Read 11 observable(s).
+Read 9 reaction rule(s).
+ACTION: simulate( method=>"cvode" )
+ACTION: generate_network( simple6 )
+Iteration   0:     4 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     5 species      1 rxns  0.00e+00 CPU s
+Iteration   2:     6 species      3 rxns  1.00e-02 CPU s
+Iteration   3:     8 species      5 rxns  0.00e+00 CPU s
+Iteration   4:    10 species     10 rxns  0.00e+00 CPU s
+Iteration   5:    12 species     14 rxns  0.00e+00 CPU s
+Iteration   6:    12 species     18 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   2:     2 reactions 1.00e-02 CPU s 5.00e-03 CPU s/rxn
+Rule   3:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   4:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   5:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   6:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   7:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   8:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   9:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Total   :    18 reactions 1.00e-02 CPU s 5.56e-04 CPU s/rxn
+Wrote network in net format to ./simple6.net.
+Network simulation using cvode
+WARNING: writeFile(): Overwriting existing file ./simple6.net.
+Wrote network in net format to ./simple6.net.
+Running run_network on Jonathans-MacBook-Air.local
+full command: /Users/jonathanfischer/miniforge3/envs/m1/lib/python3.9/site-packages/bionetgen/bng-mac/bin/run_network -o ./simple6 -p cvode -a 1e-08 -r 1e-08 --cdat 1 --fdat 0 -g ./simple6.net ./simple6.net 0.01 10000
+[simulation PID is: 70440]
+run_network 3.0
+Read 20 parameters from ./simple6.net
+Read 12 species from ./simple6.net
+Read 11 group(s) from ./simple6.net
+Read 1 function(s) from ./simple6.net
+Read 18 reaction(s) from ./simple6.net
+18 reaction(s) have nonzero rate
+Initialization took 0.00 CPU seconds
+Propagating with cvode using dense LU
+Time course of concentrations written to file ./simple6.cdat.
+Time course of groups written to file ./simple6.gdat.
+Propagation took 1.50e-01 CPU seconds
+Program times:  0.15 CPU s 0.00 clock s
+Updating species concentrations from ./simple6.cdat
+CPU TIME: simulate 0.17 s.
+Finished processing file /Users/jonathanfischer/Desktop/BNGL/simple6/2022_06_22__20_8_13/simple6.bngl.
+CPU TIME: total 0.18 s.

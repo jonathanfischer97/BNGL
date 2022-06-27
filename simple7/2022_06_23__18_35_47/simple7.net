@@ -1,0 +1,69 @@
+# Created by BioNetGen 2.7.1
+begin parameters
+    1 y1     750  # Constant
+    2 L      4517.25  # Constant
+    3 A      903.45  # Constant
+    4 K      67.20545293605097  # Constant
+    5 P      90.53945662552576  # Constant
+    6 ka1    0.0017541904231148332  # Constant
+    7 ka6    ka1*y1  # ConstantExpression
+    8 kb1    8.120835326518138  # Constant
+    9 kcat1  154.50709148948576  # Constant
+   10 ka2    0.0013626232456538673  # Constant
+   11 kb2    56.16745984589178  # Constant
+   12 ka3    0.30182019206514377  # Constant
+   13 kb3    448.5660303278958  # Constant
+   14 ka4    0.001689835318127983  # Constant
+   15 kb4    0.7671169395746191  # Constant
+   16 ka7    0.0024921886399598536  # Constant
+   17 ka5    ka7*y1  # ConstantExpression
+   18 kb7    20.40133546828582  # Constant
+   19 kcat7  99.72018734644725  # Constant
+end parameters
+begin species
+    1 pip2(head~U) L
+    2 ap2(m2muh,sy) A
+    3 kin(ap,pi) K
+    4 syn(ap,pi) P
+    5 kin(ap,pi!1).pip2(head~U!1) 0
+    6 pip2(head~P) 0
+    7 ap2(m2muh!1,sy).pip2(head~P!1) 0
+    8 pip2(head~P!1).syn(ap,pi!1) 0
+    9 ap2(m2muh!1,sy!2).kin(ap!2,pi).pip2(head~P!1) 0
+   10 ap2(m2muh!1,sy!2).pip2(head~P!1).syn(ap!2,pi) 0
+   11 ap2(m2muh!1,sy!2).kin(ap!2,pi!3).pip2(head~P!1).pip2(head~U!3) 0
+   12 ap2(m2muh!1,sy!2).pip2(head~P!1).pip2(head~P!3).syn(ap!2,pi!3) 0
+end species
+begin reactions
+    1 1,3 5 ka1 #R1
+    2 5 1,3 kb1 #_reverse_R1
+    3 5 3,6 kcat1 #R1kcat
+    4 2,6 7 ka2 #R2
+    5 4,6 8 ka7 #R5
+    6 7 2,6 kb2 #_reverse_R2
+    7 3,7 9 ka3 #R3
+    8 8 4,6 kb7 #_reverse_R5
+    9 8 1,4 kcat7 #R5kcat
+   10 4,7 10 ka4 #R6
+   11 1,9 11 ka6 #R4
+   12 9 3,7 kb3 #_reverse_R3
+   13 10 4,7 kb4 #_reverse_R6
+   14 6,10 12 ka5 #R7
+   15 11 6,9 kcat1 #R1kcat
+   16 11 1,9 kb1 #_reverse_R4
+   17 12 1,10 kcat7 #R5kcat
+   18 12 6,10 kb7 #_reverse_R7
+end reactions
+begin groups
+    1 Lfree                1
+    2 Lp                   6
+    3 Afree                2
+    4 Kfree                3
+    5 Pfree                4
+    6 LK                   5
+    7 LpA                  7
+    8 LpAK                 9
+    9 LpAKL                11
+   10 LpP                  8
+   11 LpAP                 10
+end groups

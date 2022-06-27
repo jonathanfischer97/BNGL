@@ -1,0 +1,80 @@
+begin model
+    begin parameters
+      #gamma
+      y1 750
+      #initial conditions
+      L 723 
+      A 500
+      K 337
+      P 400
+      #rates
+      ka1 0.03791999300713553
+      ka6 ka1*y1
+      kb1 700.8240393636927
+      kcat1 2.346311110198
+      Km1 (kb1 + kcat1)/ka1
+      Km6 (kb1 + kcat1)/ka6
+
+      ka2 0.05
+      kb2 100
+
+      ka3 0.1
+      kb3 700
+
+      ka5 0.3
+      kb5 200
+      kcat5 1
+
+      ka6 5
+      kb6 30
+    end parameters
+    begin molecule types
+      pip2(head~U~P)
+      ap2(m2muh,sy)
+      kin(pi,ap)
+      syn(pi,ap)
+    end molecule types
+    begin species
+      pip2(head~U) L
+      ap2(m2muh,sy) A
+      kin(pi,ap) K
+      syn(pi,ap) P
+    end species
+   begin observables
+     Species Lfree pip2(head~U)
+     Species Lp pip2(head~P)
+     Species Afree ap2(m2muh,sy)
+     Species Kfree kin(pi,ap)
+     Species Pfree syn(pi,ap)
+     Species LK kin(pi!1,ap).pip2(head~U!1)
+     Species LpA ap2(m2muh!1,sy).pip2(head~P!1)
+     Species LpAK kin(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+     Species LpAKL kin(pi!3,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2).pip2(head~U!3)
+     Species LpP syn(pi!1,ap).pip2(head~P!1)
+     Species LpAP syn(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+
+
+
+   end observables
+   begin reaction rules
+     #L + K --> Lp + K
+     R1: kin(pi,ap) + pip2(head~U) <-> kin(pi!1,ap).pip2(head~U!1) ka1,kb1
+     R1kcat: kin(pi!1,ap!?).pip2(head~U!1) -> kin(pi,ap!?) + pip2(head~P) kcat1
+     #R1: kin(pi) + pip2(head~U) <-> kin(pi!1).pip2(head~U!1) ka1, kb1
+     #R1a: kin(pi!1).pip2(head~P!1) -> kin(pi) + pip2(head~P) kb1
+     #R1b: kin(pi!1).pip2(head~U!1) -> kin(pi!1).pip2(head~P!1) kcat1
+     R1y: kin(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) + pip2(head~U) <-> kin(pi!3,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2).pip2(head~U!3) ka6,kb1
+     #Lp + A <-> LpA
+     R2: ap2(m2muh,sy) + pip2(head~P) <-> ap2(m2muh!1,sy).pip2(head~P!1) ka2, kb2
+     #K + AP2 <-> K-AP2
+     R3: kin(pi,ap) + ap2(m2muh!2,sy).pip2(head~P!2) <-> kin(pi,ap!1).ap2(m2muh!2,sy!1).pip2(head~P!2) ka3, kb3
+     #Lp + P <-> LpP -> L + P
+     R5: syn(pi,ap) + pip2(head~P) <-> syn(pi!1,ap).pip2(head~P!1) ka5,kb5
+     R5kcat: syn(pi!1,ap).pip2(head~P!1) -> syn(pi,ap) + pip2(head~U) kcat5
+     #LpA + P <-> LpAP
+     R6: syn(pi,ap) + ap2(m2muh!2,sy).pip2(head~P!2)  <-> syn(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) ka6,kb6
+   end reaction rules
+end model
+
+#generate_network({overwrite=>1})
+simulate({method=>"ode", t_end=>100,n_steps=>10000})

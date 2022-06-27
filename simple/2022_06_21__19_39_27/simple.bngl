@@ -1,0 +1,39 @@
+begin model
+    begin parameters
+
+      #initial conditions
+      L 723 
+      K 337
+      #rates
+      ka1 0.06296910163921543
+      kb1 700.8240393636927
+      kcat1 2.346311110198
+      Km1 (kb1 + kcat1)/ka1
+    end parameters
+    begin molecule types
+      pip2(head~U~P)
+      kin(pi)
+    end molecule types
+    begin species
+      pip2(head~U) L
+      kin(pi) K
+    end species
+   begin observables
+     Species Lfree pip2(head~U)
+     Species Lp pip2(head~P)
+     Species Kfree kin(pi)
+
+   end observables
+   begin reaction rules
+    #reaction 1 L + K --> Lp + K
+     R1: kin(pi) + pip2(head~U) <-> kin(pi!1).pip2(head~U!1) ka1,kb1
+     R1kcat: kin(pi!1).pip2(head~U!1) -> kin(pi) + pip2(head~P) kcat1
+     #R1: kin(pi) + pip2(head~U) <-> kin(pi!1).pip2(head~U!1) ka1, kb1
+     #R1a: kin(pi!1).pip2(head~P!1) -> kin(pi) + pip2(head~P) kb1
+     #R1b: kin(pi!1).pip2(head~U!1) -> kin(pi!1).pip2(head~P!1) kcat1
+   end reaction rules
+end model
+
+#generate_network({overwrite=>1})
+simulate({method=>"ode", sparse=>1, t_end=>100,n_steps=>10000})
+   

@@ -1,0 +1,87 @@
+begin model
+    begin parameters
+      #gamma
+      y1 750
+      #initial conditions
+      L 4517 
+      A 903
+      K 67
+      P 91
+      #rates
+      ka1 0.00029618738483467037
+      ka6 ka1*y1
+      kb1 7.686604351412696
+      kcat1 500
+      Km1 (kb1 + kcat1)/ka1
+      Km6 (kb1 + kcat1)/ka6
+
+      ka2 0.0033210781343476934
+      kb2 1.8274442883567392
+
+      ka3 0.050042137015268634
+      kb3 379.79344838656317
+
+      ka4 0.0005253224152058502
+      kb4 0.49574586107169005
+
+      ka7 0.0033210781343476934
+      ka5 ka7*y1
+      kb7 13.266634054571963
+      kcat7 330.91475227547318
+      Km7 (kb7 + kcat7)/ka7
+      Km5 (kb7 + kcat7)/ka5
+    end parameters
+    begin molecule types
+      pip2(head~U~P)
+      ap2(m2muh,sy)
+      kin(pi,ap)
+      syn(pi,ap)
+    end molecule types
+    begin species
+      pip2(head~U) L
+      ap2(m2muh,sy) A
+      kin(pi,ap) K
+      syn(pi,ap) P
+    end species
+   begin observables
+     Species Lfree pip2(head~U)
+     Species Lp pip2(head~P)
+     Species Afree ap2(m2muh,sy)
+     Species Kfree kin(pi,ap)
+     Species Pfree syn(pi,ap)
+     Molecules LK kin(pi!1).pip2(head~U!1)
+     Molecules LpA ap2(m2muh!1).pip2(head~P!1)
+     Molecules LpAK kin(ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+     Molecules LpAP syn(ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+     Molecules PLp syn(pi!1).pip2(head~P!1)
+
+   end observables
+   begin reaction rules
+    #reaction 1 L + K --> Lp + K
+     R1: kin(pi,ap) + pip2(head~U) <-> kin(pi!1,ap).pip2(head~U!1) ka1,kb1
+     R1kcat: kin(pi!1,ap!?).pip2(head~U!1) -> kin(pi,ap!?) + pip2(head~P) kcat1
+     #R1: kin(pi) + pip2(head~U) <-> kin(pi!1).pip2(head~U!1) ka1, kb1
+     #R1a: kin(pi!1).pip2(head~P!1) -> kin(pi) + pip2(head~P) kb1
+     #R1b: kin(pi!1).pip2(head~U!1) -> kin(pi!1).pip2(head~P!1) kcat1
+     #R1y: kin(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) + pip2(head~U) -> kin(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) + pip2(head~P) kcat1/(Km6+Lfree)
+     R1y: kin(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) + pip2(head~U) <-> kin(pi!3,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2).pip2(head~U!3) ka6,kb1
+     #reaction 2 Lp + A <-> LpA
+     R2: ap2(m2muh,sy) + pip2(head~P) <-> ap2(m2muh!1,sy).pip2(head~P!1) ka2, kb2
+     #reaction 3 K + LpAP2 <-> K-LpAP2
+     R3: kin(pi,ap) + ap2(sy,m2muh!2).pip2(head~P!2) <-> kin(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) ka3, kb3
+     #reaction 4 P + LpAP2 <-> P-LpAP2
+     R4: syn(pi,ap) + ap2(sy,m2muh!2).pip2(head~P!2) <-> syn(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) ka4, kb4
+     #reaction 7 Lp + P --> L + P
+     #R7: syn(pi,ap) + pip2(head~P) -> syn(pi,ap) + pip2(head~U) kcat7/(Km7+Lp)
+     R7: syn(pi,ap) + pip2(head~P) <-> syn(pi!1,ap).pip2(head~P!1) ka7,kb7
+     R7kcat: syn(pi!1,ap!?).pip2(head~P!1) -> syn(pi,ap!?) + pip2(head~U) kcat7
+     #R7: syn(pi) + pip2(head~P) <-> syn(pi!1).pip2(head~P!1) ka7, kb7
+     #R7a: syn(pi!1).pip2(head~U!1) -> syn(pi) + pip2(head~U) kb7
+     #R7b: syn(pi!1).pip2(head~P!1) -> syn(pi!1).pip2(head~U!1) kcat7
+     R7y: syn(pi,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2) + pip2(head~P) <-> syn(pi!3,ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2).pip2(head~U!3) ka5,kb7
+   end reaction rules
+end model
+
+#generate_network({overwrite=>1})
+simulate({method=>"ode", t_end=>100,n_steps=>10000})
+   

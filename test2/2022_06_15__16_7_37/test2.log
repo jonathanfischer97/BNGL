@@ -1,0 +1,52 @@
+BioNetGen version 2.7.1
+Reading from file /Users/jonathanfischer/Desktop/BNGL/test2/2022_06_15__16_7_37/test2.bngl (level 0)
+Read 23 parameters.
+Read 4 molecule types.
+Read 4 species.
+Read 10 observable(s).
+Read 9 reaction rule(s).
+ACTION: simulate( method=>"cvode" )
+ACTION: generate_network( test2 )
+Iteration   0:     4 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     5 species      1 rxns  0.00e+00 CPU s
+Iteration   2:     6 species      3 rxns  0.00e+00 CPU s
+Iteration   3:     8 species      5 rxns  0.00e+00 CPU s
+Iteration   4:    12 species     12 rxns  0.00e+00 CPU s
+Iteration   5:    17 species     25 rxns  1.00e-02 CPU s
+Iteration   6:    19 species     34 rxns  1.00e-02 CPU s
+Iteration   7:    19 species     36 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   2:     3 reactions 1.00e-02 CPU s 3.33e-03 CPU s/rxn
+Rule   3:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   4:    12 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   5:     4 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   6:     6 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   7:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   8:     3 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   9:     2 reactions 1.00e-02 CPU s 5.00e-03 CPU s/rxn
+Total   :    36 reactions 2.00e-02 CPU s 5.56e-04 CPU s/rxn
+Wrote network in net format to ./test2.net.
+Network simulation using cvode
+WARNING: writeFile(): Overwriting existing file ./test2.net.
+Wrote network in net format to ./test2.net.
+Running run_network on Jonathans-MacBook-Air.local
+full command: /Users/jonathanfischer/miniforge3/envs/m1/lib/python3.9/site-packages/bionetgen/bng-mac/bin/run_network -o ./test2 -p cvode -a 1e-08 -r 1e-08 --cdat 1 --fdat 0 -g ./test2.net ./test2.net 0.01 10000
+[simulation PID is: 34162]
+run_network 3.0
+Read 23 parameters from ./test2.net
+Read 19 species from ./test2.net
+Read 10 group(s) from ./test2.net
+Read 0 function(s) from ./test2.net
+Read 36 reaction(s) from ./test2.net
+36 reaction(s) have nonzero rate
+Initialization took 0.23 CPU seconds
+Propagating with cvode using dense LU
+Time course of concentrations written to file ./test2.cdat.
+Time course of groups written to file ./test2.gdat.
+Propagation took 1.50e-01 CPU seconds
+Program times:  0.38 CPU s 0.00 clock s
+Updating species concentrations from ./test2.cdat
+CPU TIME: simulate 0.40 s.
+Finished processing file /Users/jonathanfischer/Desktop/BNGL/test2/2022_06_15__16_7_37/test2.bngl.
+CPU TIME: total 0.42 s.

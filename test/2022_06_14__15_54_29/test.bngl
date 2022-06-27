@@ -1,0 +1,64 @@
+begin model
+
+begin parameters
+  L 3918
+  A 714
+  K 261
+  P 246
+  ka1 0.00075574074
+  kb1 48.440567
+  kcat1 291.36435
+  Km1 (kb1+kcat1)/ka1
+  ka2 0.0036038194
+  kb2 112.01365
+  ka3 0.14826057
+  kb3 137.0742
+  ka4 0.0016885796
+  kb4 0.24499488
+  ka7 0.0025467855
+  kb7 181.13571
+  kcat7 58.377714
+  Km7 (kb7+kcat7)/ka7
+end parameters
+
+begin molecule types
+  ap2(m2muh,sy)
+  kin(pi,ap)
+  pip2(head~U~P)
+  syn(pi,ap)
+end molecule types
+
+begin species
+  pip2(head~U) L
+  ap2(m2muh,sy) A
+  kin(ap,pi) K
+  syn(ap,pi) P
+end species
+
+begin observables
+  Molecules Lp pip2(head~P)
+  Molecules LK kin(pi!1).pip2(head~U!1)
+  Molecules LpA ap2(m2muh!1).pip2(head~P!1)
+  Molecules LpAK kin(ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+  Molecules LpAP syn(ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+  Molecules PLp syn(pi!1).pip2(head~P!1)
+end observables
+
+begin reaction rules
+  R1: kin(pi) + pip2(head~U) <-> kin(pi!1).pip2(head~U!1) ka1,kb1 
+  R1a: kin(pi!1).pip2(head~P!1) -> kin(pi) + pip2(head~P) kb1 
+  R1b: kin(pi!1).pip2(head~U!1) -> kin(pi!1).pip2(head~P!1) kcat1 
+  R2: ap2(m2muh) + pip2(head~P) <-> ap2(m2muh!1).pip2(head~P!1) ka2,kb2 
+  R3: kin(ap) + ap2(sy,m2muh!?) <-> kin(ap!1).ap2(sy!1,m2muh!?) ka3,kb3 
+  R4: syn(ap) + ap2(sy,m2muh!?) <-> syn(ap!1).ap2(sy!1,m2muh!?) ka4,kb4 
+  R7: syn(pi) + pip2(head~P) <-> syn(pi!1).pip2(head~P!1) ka7,kb7 
+  R7a: syn(pi!1).pip2(head~U!1) -> syn(pi) + pip2(head~U) kb7 
+  R7b: syn(pi!1).pip2(head~P!1) -> syn(pi!1).pip2(head~U!1) kcat7 
+end reaction rules
+
+end model
+
+visualize({type=>'contactmap'})
+visualize({type=>'ruleviz_pattern'})
+visualize({type=>'ruleviz_operation'})
+visualize({type=>'regulatory'})

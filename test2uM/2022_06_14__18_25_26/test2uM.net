@@ -1,0 +1,73 @@
+# Created by BioNetGen 2.7.1
+begin parameters
+    1 V          0.5  # Constant
+    2 NaV        602*V  # ConstantExpression
+    3 L          15  # Constant
+    4 A          3  # Constant
+    5 K          0.22316271936261323  # Constant
+    6 P          0.3006457135166055  # Constant
+    7 ka1        0.0891841061405337/NaV  # ConstantExpression
+    8 kb1        7.686604351412696  # Constant
+    9 kcat1      500  # Constant
+   10 Km1        (kb1+kcat1)/ka1  # ConstantExpression
+   11 ka2        0.0033210781343476934/NaV  # ConstantExpression
+   12 kb2        1.8274442883567392  # Constant
+   13 ka3        0.050042137015268634/NaV  # ConstantExpression
+   14 kb3        379.79344838656317  # Constant
+   15 ka4        0.0005253224152058502/NaV  # ConstantExpression
+   16 kb4        0.49574586107169005  # Constant
+   17 ka7        0.0033210781343476934/NaV  # ConstantExpression
+   18 kb7        13.266634054571963  # Constant
+   19 kcat7      33.91475227547318  # Constant
+   20 Km7        (kb7+kcat7)/ka7  # ConstantExpression
+end parameters
+begin functions
+    1 _rateLaw1() kcat1/(Km1+Lfree)
+    2 _rateLaw2() kcat7/(Km7+Lp)
+end functions
+begin species
+    1 pip2(head~U) L
+    2 ap2(m2muh,sy) A
+    3 kin(ap,pi) K
+    4 syn(ap,pi) P
+    5 pip2(head~P) 0
+    6 ap2(m2muh,sy!1).kin(ap!1,pi) 0
+    7 ap2(m2muh,sy!1).syn(ap!1,pi) 0
+    8 ap2(m2muh!1,sy).pip2(head~P!1) 0
+    9 ap2(m2muh!1,sy!2).kin(ap!2,pi).pip2(head~P!1) 0
+   10 ap2(m2muh!1,sy!2).pip2(head~P!1).syn(ap!2,pi) 0
+end species
+begin reactions
+    1 3,1 3,5 _rateLaw1 #R1
+    2 2,3 6 ka3 #R3
+    3 2,4 7 ka4 #R4
+    4 6,1 6,5 _rateLaw1 #R1
+    5 2,5 8 ka2 #R2
+    6 5,6 9 ka2 #R2
+    7 5,7 10 ka2 #R2
+    8 6 2,3 kb3 #_reverse_R3
+    9 7 2,4 kb4 #_reverse_R4
+   10 4,5 4,1 _rateLaw2 #R7
+   11 7,5 7,1 _rateLaw2 #R7
+   12 9,1 9,5 _rateLaw1 #R1
+   13 8 2,5 kb2 #_reverse_R2
+   14 9 5,6 kb2 #_reverse_R2
+   15 10 5,7 kb2 #_reverse_R2
+   16 3,8 9 ka3 #R3
+   17 9 3,8 kb3 #_reverse_R3
+   18 4,8 10 ka4 #R4
+   19 10 4,8 kb4 #_reverse_R4
+   20 10,5 10,1 _rateLaw2 #R7
+end reactions
+begin groups
+    1 Lfree                1
+    2 Lp                   5
+    3 Afree                2
+    4 Kfree                3
+    5 Pfree                4
+    6 LK                   
+    7 LpA                  8,9,10
+    8 LpAK                 9
+    9 LpAP                 10
+   10 PLp                  
+end groups

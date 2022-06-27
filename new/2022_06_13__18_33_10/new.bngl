@@ -1,0 +1,34 @@
+begin model
+
+begin parameters
+  _rateLaw1 0.01
+  _rateLaw2 1
+end parameters
+
+begin molecule types
+  A()
+  B()
+  C()
+end molecule types
+
+begin species
+  A() 100
+  B() 100
+end species
+
+begin observables
+  Molecules A A()
+  Molecules B B()
+  Molecules C C()
+end observables
+
+begin reaction rules
+  _R1: A() + B() <-> C() _rateLaw1,_rateLaw2 
+end reaction rules
+
+end model
+
+visualize({type=>'contactmap'})
+visualize({type=>'ruleviz_pattern'})
+visualize({type=>'ruleviz_operation'})
+visualize({type=>'regulatory'})

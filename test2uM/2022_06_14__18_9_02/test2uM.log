@@ -1,0 +1,44 @@
+BioNetGen version 2.7.1
+Reading from file /Users/jonathanfischer/Desktop/BNGL/test2uM/2022_06_14__18_9_02/test2uM.bngl (level 0)
+Read 20 parameters.
+Read 4 molecule types.
+Read 4 species.
+Read 10 observable(s).
+Read 5 reaction rule(s).
+ACTION: simulate( method=>"cvode" )
+ACTION: generate_network( test2uM )
+Iteration   0:     4 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     7 species      3 rxns  0.00e+00 CPU s
+Iteration   2:    10 species     11 rxns  0.00e+00 CPU s
+Iteration   3:    10 species     20 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     3 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   2:     6 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   3:     4 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   4:     4 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   5:     3 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Total   :    20 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Wrote network in net format to ./test2uM.net.
+Network simulation using cvode
+WARNING: writeFile(): Overwriting existing file ./test2uM.net.
+Wrote network in net format to ./test2uM.net.
+Running run_network on Jonathans-MacBook-Air.local
+full command: /Users/jonathanfischer/miniforge3/envs/m1/lib/python3.9/site-packages/bionetgen/bng-mac/bin/run_network -o ./test2uM -p cvode -a 1e-08 -r 1e-08 --cdat 1 --fdat 0 -g ./test2uM.net ./test2uM.net 0.01 10000
+[simulation PID is: 33696]
+run_network 3.0
+Read 20 parameters from ./test2uM.net
+Read 10 species from ./test2uM.net
+Read 10 group(s) from ./test2uM.net
+Read 2 function(s) from ./test2uM.net
+Read 20 reaction(s) from ./test2uM.net
+20 reaction(s) have nonzero rate
+Initialization took 0.34 CPU seconds
+Propagating with cvode using dense LU
+Time course of concentrations written to file ./test2uM.cdat.
+Time course of groups written to file ./test2uM.gdat.
+Propagation took 1.20e-01 CPU seconds
+Program times:  0.46 CPU s 0.00 clock s
+Updating species concentrations from ./test2uM.cdat
+CPU TIME: simulate 0.48 s.
+Finished processing file /Users/jonathanfischer/Desktop/BNGL/test2uM/2022_06_14__18_9_02/test2uM.bngl.
+CPU TIME: total 0.49 s.

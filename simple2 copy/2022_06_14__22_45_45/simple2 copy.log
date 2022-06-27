@@ -1,0 +1,8 @@
+BioNetGen version 2.7.1
+Reading from file /Users/jonathanfischer/Desktop/BNGL/simple2 copy/2022_06_14__22_45_45/simple2 copy.bngl (level 0)
+Read 14 parameters.
+Read 3 molecule types.
+Read 3 species.
+Read 7 observable(s).
+ERROR: Invalid Molecule name in ', kcat1' (must begin with a letter or underscore).
+at line 48

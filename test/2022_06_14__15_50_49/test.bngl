@@ -1,0 +1,66 @@
+begin model
+    begin parameters
+      L 3918 
+      A 714
+      K 261
+      P 246
+      ka1 0.0007557407394326982
+      kb1 48.440566580454714
+      kcat1 291.36434806295233
+      Km1 (kb1 + kcat1)/ka1
+      ka2 0.0036038194197025144
+      kb2 112.01365065538589
+      ka3 0.14826056556313655
+      kb3 137.074202319096
+      ka4 0.0016885795647193036
+      kb4 0.24499488207616907
+      ka7 0.0025467854965034453
+      kb7 181.1357136462809
+      kcat7 58.377714414792635
+      Km7 (kb7 + kcat7)/ka7
+    end parameters
+    begin molecule types
+      pip2(head~U~P)
+      ap2(m2muh,sy)
+      kin(pi,ap)
+      syn(pi,ap)
+    end molecule types
+    begin species
+      pip2(head~U) L
+      ap2(m2muh,sy) A
+      kin(pi,ap) K
+      syn(pi,ap) P
+    end species
+   begin observables
+     #Molecules L pip2(head~U)
+     Molecules Lp pip2(head~P)
+     #Molecules A ap2(m2muh,sy)
+     #Molecules K kin(pi,ap)
+     #Molecules P syn(pi,ap)
+     Molecules LK kin(pi!1).pip2(head~U!1)
+     Molecules LpA ap2(m2muh!1).pip2(head~P!1)
+     Molecules LpAK kin(ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+     Molecules LpAP syn(ap!1).ap2(sy!1,m2muh!2).pip2(head~P!2)
+     Molecules PLp syn(pi!1).pip2(head~P!1)
+
+   end observables
+   begin reaction rules
+    #reaction 1 L + K --> Lp + K
+     R1: kin(pi) + pip2(head~U) <-> kin(pi!1).pip2(head~U!1) ka1, kb1
+     R1a: kin(pi!1).pip2(head~P!1) -> kin(pi) + pip2(head~P) kb1
+     R1b: kin(pi!1).pip2(head~U!1) -> kin(pi!1).pip2(head~P!1) kcat1
+     #reaction 2 Lp + A <-> LpA
+     R2: ap2(m2muh) + pip2(head~P) <-> ap2(m2muh!1).pip2(head~P!1) ka2, kb2
+     #reaction 3 K + AP2 <-> K-AP2
+     R3: kin(ap) + ap2(sy,m2muh!?) <-> kin(ap!1).ap2(sy!1,m2muh!?) ka3, kb3
+     #reaction 4 P + AP2 <-> P-AP2
+     R4: syn(ap) + ap2(sy,m2muh!?) <-> syn(ap!1).ap2(sy!1,m2muh!?) ka4, kb4
+     #reaction 7 Lp + P --> L + P
+     R7: syn(pi) + pip2(head~P) <-> syn(pi!1).pip2(head~P!1) ka7, kb7
+     R7a: syn(pi!1).pip2(head~U!1) -> syn(pi) + pip2(head~U) kb7
+     R7b: syn(pi!1).pip2(head~P!1) -> syn(pi!1).pip2(head~U!1) kcat7
+   end reaction rules
+end model
+   
+simulate({method=>"ode", t_end=>20000,n_steps=>1000})
+   
